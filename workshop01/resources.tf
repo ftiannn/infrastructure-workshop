@@ -42,7 +42,7 @@ resource "docker_container" "bgg-backend" {
     name = "${var.app_namespace}-bgg-backend-${count.index}"
     image = docker_image.bgg-backend.image_id
 
-    network_advanced {
+    networks_advanced {
         name = docker_network.bgg-net.id
     }
 
