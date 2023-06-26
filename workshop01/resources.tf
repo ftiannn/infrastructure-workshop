@@ -31,8 +31,8 @@ resource "docker_container" "bgg-database" {
     }
 
     ports {
-        external: 3306
-        internal: 3306
+        external = 3306
+        internal = 3306
     }
 }
 
