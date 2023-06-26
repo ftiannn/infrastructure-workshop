@@ -65,7 +65,7 @@ resource "local_file" "nginx-conf" {
     })
 }
 
-data "digitalocean_ssh_key" "apic" {
+data "digitalocean_ssh_key" "aipc" {
     name = var.do_ssh_key
 }
 
@@ -75,7 +75,7 @@ resource "digitalocean_droplet" "nginx" {
     region = var.do_region
     size = var.do_size
 
-    ssh_keys = [data.digitalocean_ssh_key.apic.id]
+    ssh_keys = [data.digitalocean_ssh_key.aipc.id]
 
     connection {
         type = "ssh"

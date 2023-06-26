@@ -49,7 +49,7 @@ variable do_size {
 
 variable do_ssh_key {
     type = string
-    default = "apic" #to be entered in digitalocean ssh key -> has to match with this
+    default = "aipc" #to be entered in digitalocean ssh key -> has to match with this
 }
 
 variable ssh_private_key {
