@@ -21,11 +21,11 @@ resource "docker_volume" "data-vol" {
 resource "docker_container" "bgg-database" {
     name = "${var.app_namespace}-bgg-database"
     image = docker_image.bgg-database.image_id
-    network_advanced {
+    networks_advanced {
         name = docker_network.bgg-net.id
     }
 
-    volume {
+    volumes {
         volume_name = docker_volume.data-vol.name
         container_path = "var/lib/mysql"
     }
@@ -47,9 +47,9 @@ resource "docker_container" "bgg-backend" {
     }
 
     env = [
-        "BGG_DB_USER" = "root",
-        "BGG_DB_PASSWORD" = "changeit",
-        "BGG_DB_HOST" = "${docker_container.bgg-database.name}",
+        "BGG_DB_USER=root",
+        "BGG_DB_PASSWORD=changeit",
+        "BGG_DB_HOST=${docker_container.bgg-database.name}",
     ]
 
     ports {
