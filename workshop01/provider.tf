@@ -1,6 +1,5 @@
 terraform {
     required_providers {
-        # default values
         docker = {
             source = "kreuzwerker/docker"
             version = "3.0.2"
@@ -17,13 +16,14 @@ terraform {
 }
 
 provider docker {
-    # to override with the default values
+    # host = "unix:///var/run/docker.sock"
     host = "tcp://${var.docker_host}:2376"
     cert_path = var.docker_cert_path
 }
 
 provider digitalocean {
     token = var.do_token
+
 }
 
-provider local {}
+provider local { }

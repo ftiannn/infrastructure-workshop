@@ -7,43 +7,43 @@ resource "docker_image" "bgg-backend" {
     name = "chukmunnlee/bgg-backend:${var.backend_version}"
 }
 
-# network
+# the stack
 resource "docker_network" "bgg-net" {
     name = "${var.app_namespace}-bgg-net"
 }
 
-# harddisk storage
 resource "docker_volume" "data-vol" {
     name = "${var.app_namespace}-data-vol"
 }
 
-# override a running unit/process (not image - build and publish)
 resource "docker_container" "bgg-database" {
     name = "${var.app_namespace}-bgg-database"
     image = docker_image.bgg-database.image_id
+
     networks_advanced {
-        name = docker_network.bgg-net.id
+      name = docker_network.bgg-net.id
     }
 
     volumes {
-        volume_name = docker_volume.data-vol.name
-        container_path = "var/lib/mysql"
+      volume_name = docker_volume.data-vol.name
+      container_path = "/var/lib/mysql"
     }
 
     ports {
-        external = 3306
         internal = 3306
+        external = 3306
     }
 }
 
 resource "docker_container" "bgg-backend" {
+
     count = var.backend_instance_count
-    # spin off 3 instance, so use count.index
+
     name = "${var.app_namespace}-bgg-backend-${count.index}"
     image = docker_image.bgg-backend.image_id
 
     networks_advanced {
-        name = docker_network.bgg-net.id
+      name = docker_network.bgg-net.id
     }
 
     env = [
@@ -75,34 +75,32 @@ resource "digitalocean_droplet" "nginx" {
     region = var.do_region
     size = var.do_size
 
-    ssh_keys = [data.digitalocean_ssh_key.aipc.id]
+    ssh_keys = [ data.digitalocean_ssh_key.aipc.id ]
 
     connection {
-        type = "ssh"
-        user = "root"
-        private_key = file(var.ssh_private_key)
-        host = self.ipv4_address
+      type = "ssh"
+      user = "root"
+      private_key = file(var.ssh_private_key)
+      host = self.ipv4_address
     }
 
     provisioner "remote-exec" {
         inline = [
             "apt update -y",
             "apt upgrade -y",
-            "apt install nginx -y"
+            "apt install nginx -y",
         ]
     }
-
     provisioner "file" {
         source = local_file.nginx-conf.filename
         destination = "/etc/nginx/nginx.conf"
     }
-
-     provisioner "remote-exec" {
+    provisioner "remote-exec" {
         inline = [
-            "systemctl restart nginx",
-            "systemctl enable nginx",
+          "systemctl restart nginx",
+          "systemctl enable nginx",
         ]
-     }
+    }
 }
 
 resource "local_file" "root_at_nginx" {
@@ -115,6 +113,6 @@ output nginx_ip {
     value = digitalocean_droplet.nginx.ipv4_address
 }
 
-output backend_port {
+output backend_ports {
     value = docker_container.bgg-backend[*].ports[0].external
 }

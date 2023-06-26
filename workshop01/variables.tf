@@ -13,7 +13,7 @@ variable docker_cert_path {
 }
 
 variable app_namespace {
-    type = string
+    type = string 
     default = "my"
 }
 
@@ -27,18 +27,18 @@ variable backend_version {
     default = "v3"
 }
 
-variable backend_instance_count {
+variable backend_instance_count{
     type = number
     default = 3
 }
 
 variable do_region {
-    type= string
+    type = string
     default = "sgp1"
 }
 
 variable do_image {
-    type = string
+    type = string 
     default = "ubuntu-20-04-x64"
 }
 
@@ -48,8 +48,8 @@ variable do_size {
 }
 
 variable do_ssh_key {
-    type = string
-    default = "aipc" #to be entered in digitalocean ssh key -> has to match with this
+    type = string 
+    default = "aipc"
 }
 
 variable ssh_private_key {
