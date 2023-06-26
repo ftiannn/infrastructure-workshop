@@ -2,7 +2,7 @@ terraform {
     required_providers {
         # default values
         docker = {
-            source = "kreyzweker/docker"
+            source = "kreuzwerker/docker"
             version = "3.0.2"
         }
         digitalocean = {
