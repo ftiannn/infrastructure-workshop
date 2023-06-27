@@ -15,7 +15,7 @@ variable do_image {
 
 variable do_size {
     type = string
-    default = "s-1vcpu-4gb"
+    default = "s-1vcpu-1gb"
 }
 
 variable do_ssh_key {
