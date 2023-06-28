@@ -6,10 +6,15 @@ data "digitalocean_image" "codeserver" {
     name = "codeserver"
 }
 
+data "digitalocean_droplet_snapshot" "codeserver-snapshot" {
+  name_regex  = "code-server"
+  region      = var.do_region
+  most_recent = true
+}
 
 resource "digitalocean_droplet" "codeserver" {
     name = "codeserver"
-    image = digitalocean_image.codeserver.id
+    image = digitalocean_droplet_snapshot.codeserver-snapshot.id
     region = var.do_region
     size = var.do_size
 
