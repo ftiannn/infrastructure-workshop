@@ -2,7 +2,7 @@ data "digitalocean_ssh_key" "aipc" {
     name = var.do_ssh_key
 }
 
-data "digitalocean_droplet_snapshot" "codeserver-snapshot" {
+data "digitalocean_droplet_snapshot" "codeserver" {
   name_regex  = "code-server"
   region      = var.do_region
   most_recent = true
@@ -10,7 +10,7 @@ data "digitalocean_droplet_snapshot" "codeserver-snapshot" {
 
 resource "digitalocean_droplet" "codeserver" {
     name = "codeserver"
-    image = digitalocean_droplet_snapshot.codeserver-snapshot.id
+    image = data.digitalocean_droplet_snapshot.codeserver.id
     region = var.do_region
     size = var.do_size
 
