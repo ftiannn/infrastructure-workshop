@@ -9,7 +9,7 @@ source digitalocean codeserver {
 }
 
 build {
-    source = [
+    sources = [
         "source.digitalocean.codeserver"
     ]
 
