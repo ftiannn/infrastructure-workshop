@@ -41,9 +41,9 @@
     - src: "{{cs_dir}}/{{cs_unpacked}}/bin/code-server"
       dest: /usr/bin/code-server
   
-  - name: Generate codeserver service
-    template:
-      src: code-server.service.j2
+  - name: Copy code server service
+    copy:
+      src: code-server.service
       dest: /lib/systemd/system/code-server.service
 
   - name: Enable code server service
@@ -62,8 +62,8 @@
       state: latest
 
   - name: Generate code-server.conf
-    template:
-      src: code-server.conf.j2
+    copy:
+      src: code-server.conf
       dest: /etc/nginx/sites-available/code-server.conf
 
   - name: Link code-server.conf to /etc/nginx/sites-enabled
