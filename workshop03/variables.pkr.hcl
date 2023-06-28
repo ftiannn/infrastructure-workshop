@@ -18,8 +18,4 @@ variable do_size {
     default = "s-1vcpu-1gb"
 }
 
-locals {
-  do_token = var.do_token
-}
-
 
