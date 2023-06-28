@@ -6,9 +6,10 @@ data "digitalocean_image" "codeserver" {
     name = "codeserver"
 }
 
+
 resource "digitalocean_droplet" "codeserver" {
     name = "codeserver"
-    image = var.do_image
+    image = digitalocean_image.codeserver.id
     region = var.do_region
     size = var.do_size
 
