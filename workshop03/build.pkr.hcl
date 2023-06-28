@@ -3,7 +3,6 @@ source digitalocean codeserver {
     image = var.do_image
     region = var.do_region
     size = var.do_size
-
     ssh_username = "root"
     snapshot_name = "codeserver"
 }
