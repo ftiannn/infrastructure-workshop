@@ -2,10 +2,6 @@ data "digitalocean_ssh_key" "aipc" {
     name = var.do_ssh_key
 }
 
-data "digitalocean_image" "codeserver" {
-    name = "codeserver"
-}
-
 data "digitalocean_droplet_snapshot" "codeserver-snapshot" {
   name_regex  = "code-server"
   region      = var.do_region
