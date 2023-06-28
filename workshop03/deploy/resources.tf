@@ -38,15 +38,15 @@ resource "local_file" "root_at_codeserver" {
     file_permission = "0444"
 }
 
-resource "local_file" "inventory" {
-    filename = "inventory.yaml"
-    content = templatefile("inventory.yaml.tftpl", {
-        codeserver_ip = digitalocean_droplet.codeserver.ipv4_address
-        ssh_private_key = var.ssh_private_key
-        codeserver_domain = "code-server-${digitalocean_droplet.codeserver.ipv4_address}.nip.io"
-        codeserver_password = var.codeserver_password
-    })
-}
+# resource "local_file" "inventory" {
+#     filename = "inventory.yaml"
+#     content = templatefile("inventory.yaml.tftpl", {
+#         codeserver_ip = digitalocean_droplet.codeserver.ipv4_address
+#         ssh_private_key = var.ssh_private_key
+#         codeserver_domain = "code-server-${digitalocean_droplet.codeserver.ipv4_address}.nip.io"
+#         codeserver_password = var.codeserver_password
+#     })
+# }
 
 output codeserver_ip {
     value = digitalocean_droplet.codeserver.ipv4_address
