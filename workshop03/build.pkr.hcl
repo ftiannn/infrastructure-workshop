@@ -19,4 +19,12 @@ build {
             "-oHostKeyAlgorithms=+ssh-rsa -oPubkeyAcceptedKeyTypes=+ssh-rsa"
         ]
     }
+
+    provisioner "shell" {
+        inline = [
+        "echo This is a Packer build example.",
+        "echo My variable value is: ${var.do_region}"
+        ]
+    }
+
 }
