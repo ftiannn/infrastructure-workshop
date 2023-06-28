@@ -28,10 +28,6 @@ variable do_ssh_key {
     default = "aipc"
 }
 
-variable codeserver_domain {
-    type = string
-}
-
 variable codeserver_password {
     type = string
     sensitive = true
