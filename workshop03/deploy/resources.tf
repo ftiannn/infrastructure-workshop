@@ -3,7 +3,7 @@ data "digitalocean_ssh_key" "aipc" {
 }
 
 data "digitalocean_droplet_snapshot" "codeserver" {
-  name_regex  = "code-server"
+  name_regex  = "codeserver"
   region      = var.do_region
   most_recent = true
 }
